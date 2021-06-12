@@ -1,0 +1,17 @@
+Link do Swagger - Documentação do projeto
+http://localhost:8080/swagger-ui/index.html#/
+
+Post Cliente
+{
+	"email": "gth14@gmail.com",
+	"username": "apedro123",
+	"senha": "741",
+	"nome": "Pedro Ramos",
+	"cpf": "12310456984",
+	"telefone": "22998445533",
+	"dataNascimento":"1993-05-20",
+	"endereco": {
+		"cep": "28630430",
+		"numeroResidencia": "123"
+	}
+}
