@@ -2,11 +2,13 @@ package org.serratec.models;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
+
 
 @Entity
 public class Produto {
@@ -18,11 +20,18 @@ public class Produto {
 	private String descricao;
 	private Double preco;
 	private Integer quantidadeEstoque;
-	private LocalDateTime dataCadastro;
-	private String imagem;
-	
-	@OneToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	private Categoria categoria;
+	private LocalDateTime dataCadastro;
+	private byte[] imagemBase64;
+	
+	public byte[] getImagemBase64() {
+		return imagemBase64;
+	}
+
+	public void setImagemBase64(byte[] imagemBase64) {
+		this.imagemBase64 = imagemBase64;
+	}
 
 	public Long getId() {
 		return id;
@@ -70,14 +79,6 @@ public class Produto {
 
 	public void setDataCadastro(LocalDateTime dataCadastro) {
 		this.dataCadastro = dataCadastro;
-	}
-
-	public String getImagem() {
-		return imagem;
-	}
-
-	public void setImagem(String imagem) {
-		this.imagem = imagem;
 	}
 
 	public Categoria getCategoria() {

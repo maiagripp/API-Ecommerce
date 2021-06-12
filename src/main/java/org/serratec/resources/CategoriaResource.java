@@ -17,19 +17,25 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 @RestController
+@Api(value = "API - Categorias dos Produtos")
 public class CategoriaResource {
 
 	@Autowired
 	CategoriaRepository categoriaRepository;
 	
+	@ApiOperation(value = "Cadastro de uma nova categoria")
 	@PostMapping("/categoria")
 	public ResponseEntity<?> postCategoria(@RequestBody Categoria categoria){
 		categoriaRepository.save(categoria);
 		
-		return new ResponseEntity<>("Cadastrado com sucesso", HttpStatus.OK);
+		return new ResponseEntity<>("Categoria cadastrada com sucesso", HttpStatus.OK);
 	}
 	
+	@ApiOperation(value = "Consulta todas as categorias")
 	@GetMapping("/categoria/todas")
 	public ResponseEntity<?> getTodos(){
 		List<Categoria> todos = categoriaRepository.findAll();
@@ -37,6 +43,7 @@ public class CategoriaResource {
 		return new ResponseEntity<>(todos, HttpStatus.OK);
 	}
 	
+	@ApiOperation(value = "Consulta de uma categoria por nome")
 	@GetMapping("/categoria/{nome}")
 	public ResponseEntity<?> getPorNome(@PathVariable String nome){
 		try {
@@ -46,10 +53,9 @@ public class CategoriaResource {
 		} catch (CategoriaException e) {
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
 		}
-		
-		
 	}
 	
+	@ApiOperation(value = "Atualização de uma categoria a partir do seu id")
 	@PutMapping("/categoria/{id}")
 	public ResponseEntity<?> putCategoria(@PathVariable Long id, @RequestBody Categoria novo) {
 		Optional<Categoria> optional = categoriaRepository.findById(id);
@@ -67,6 +73,7 @@ public class CategoriaResource {
 		return new ResponseEntity<>("Categoria atualizada com sucesso", HttpStatus.OK);
 	}
 	
+	@ApiOperation(value = "Exclusão de uma categoria a partir do seu id")
 	@DeleteMapping("/categoria/{id}")
 	public ResponseEntity<?> deleteCategoria(@PathVariable Long id){
 		Optional<Categoria> optional = categoriaRepository.findById(id);
