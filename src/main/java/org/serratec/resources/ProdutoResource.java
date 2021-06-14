@@ -21,7 +21,11 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 @RestController
+@Api(value = "API - Produtos do Ecommerce")
 public class ProdutoResource {
 	
 	@Autowired
@@ -30,6 +34,7 @@ public class ProdutoResource {
 	@Autowired
 	CategoriaRepository categoriaRepository;
 	
+	@ApiOperation(value = "Cadastro de  imagem de um produto")
 	@GetMapping(value = "/produto/imagem/{id}", produces = MediaType.IMAGE_JPEG_VALUE)
 	public ResponseEntity<?> getCapa (@PathVariable Long id){
 		Optional<Produto> produto = produtoRepository.findById(id);
@@ -40,6 +45,7 @@ public class ProdutoResource {
 		return new ResponseEntity<>(produto.get().getImagemBase64(), HttpStatus.OK); 
 	}
 	
+	@ApiOperation(value = "Cadastro de um produto")
 	@PostMapping("/produto")
 	public ResponseEntity<?> postProduto(@RequestBody ProdutoCadastroDTO dto) {
 		try {
@@ -52,6 +58,7 @@ public class ProdutoResource {
 
 	}
 	
+	@ApiOperation(value = "Consulta todos os produtos")
 	@GetMapping("/produto/todos")
 	public ResponseEntity<?> getTodos() {
 		List<Produto> todos = produtoRepository.findAll();
@@ -59,6 +66,7 @@ public class ProdutoResource {
 		return new ResponseEntity<>(todos, HttpStatus.OK);
 	}
 	
+	@ApiOperation(value = "Consulta de produto por nome")
 	@GetMapping("/produto/{nome}")
 	public ResponseEntity<?> getPorNome(@PathVariable String nome) {
 		try {
@@ -71,6 +79,7 @@ public class ProdutoResource {
 		
 	}
 	
+	@ApiOperation(value = "Alteração de um produto pelo seu ID")
 	@PutMapping("/produto/{id}")
 	public ResponseEntity<?> putProduto(@PathVariable Long id, @RequestBody Produto novo) {
 		Optional <Produto> optional = produtoRepository.findById(id);
@@ -93,6 +102,7 @@ public class ProdutoResource {
 		
 	}
 	
+	@ApiOperation(value = "Exclusão de um produto")
 	@DeleteMapping("/produto/{id}")
 	public ResponseEntity<?> deleteProduto(@PathVariable Long id) {
 		Optional <Produto> optional = produtoRepository.findById(id);

@@ -66,15 +66,22 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         	.antMatchers(HttpMethod.GET, "/produto/{nome}").permitAll()
         	.antMatchers(HttpMethod.PUT, "/produto/{id}").permitAll()
         	.antMatchers(HttpMethod.DELETE, "/produto/{id}").permitAll()
-        	.antMatchers(HttpMethod.GET, "/produto/imagem/{id}").permitAll()
-        	.anyRequest().authenticated()
+        	.antMatchers(HttpMethod.GET, "/produto/imagem/{id}").permitAll()   
+        	.antMatchers(HttpMethod.GET, "/help").permitAll()
+        	.antMatchers(HttpMethod.DELETE, "/pedido/excluir/{numeroPedido}").permitAll()
+        	.antMatchers(HttpMethod.PUT, "/pedido").permitAll()
+        	.antMatchers(HttpMethod.GET, "/cliente/desativar/{email}").permitAll()
+        	.antMatchers(HttpMethod.POST, "/pedido/finalizar").permitAll()
+        		.anyRequest().authenticated()
         	.and().csrf().disable()
         	.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         	.and().addFilterBefore(new TokenAuthenticationFilter(tokenService, repository), UsernamePasswordAuthenticationFilter.class);
     }
 
-    //Configuration for static resources
+     
+    
     @Override
-    public void configure(WebSecurity web) throws Exception {
-    }
+	public void configure(WebSecurity web) throws Exception{
+		web.ignoring().antMatchers("/css/*", "/img/", "/js/*");
+	}
 }

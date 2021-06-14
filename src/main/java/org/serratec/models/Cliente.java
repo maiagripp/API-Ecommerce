@@ -54,6 +54,7 @@ public class Cliente implements UserDetails {
 
 	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
 	private Endereco endereco;
+	private Boolean statusConta = true;
 
 	public Long getId() {
 		return id;
@@ -159,6 +160,18 @@ public class Cliente implements UserDetails {
 
 	@Override
 	public boolean isEnabled() {
-		return true;
+		if (statusConta == true) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public Boolean getStatusConta() {
+		return statusConta;
+	}
+
+	public void setStatusConta(Boolean statusConta) {
+		this.statusConta = statusConta;
 	}
 }

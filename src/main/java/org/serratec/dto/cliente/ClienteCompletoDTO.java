@@ -14,6 +14,7 @@ public class ClienteCompletoDTO {
 	private String telefone;
 	private LocalDate dataNascimento;
 	private EnderecoCompletoDTO endereco;
+	private Boolean statusConta;
 	
 	public ClienteCompletoDTO(Cliente cliente) {
 		this.email = cliente.getEmail();
@@ -23,8 +24,13 @@ public class ClienteCompletoDTO {
 		this.telefone = cliente.getTelefone();
 		this.dataNascimento = cliente.getDataNascimento();
 		this.endereco = new EnderecoCompletoDTO(cliente.getEndereco());
+		this.statusConta = cliente.getStatusConta();
 	}
 
+	public Boolean getStatusConta() {
+		return statusConta;
+	}
+	
 	public String getEmail() {
 		return email;
 	}
@@ -52,4 +58,7 @@ public class ClienteCompletoDTO {
 	public EnderecoCompletoDTO getEndereco() {
 		return endereco;
 	}
+
+
+
 }

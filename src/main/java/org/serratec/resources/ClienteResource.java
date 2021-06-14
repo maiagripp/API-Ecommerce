@@ -6,6 +6,7 @@ import java.util.List;
 import org.serratec.dto.cliente.ClienteCadastroDTO;
 import org.serratec.dto.cliente.ClienteCompletoDTO;
 import org.serratec.exception.ClienteException;
+import org.serratec.metodos.ValidaCPF;
 import org.serratec.models.Cliente;
 import org.serratec.repository.ClienteRepository;
 import org.serratec.repository.EnderecoRepository;
@@ -14,8 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.handler.annotation.support.MethodArgumentNotValidException;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -52,6 +53,7 @@ public class ClienteResource {
 		return new ResponseEntity<>(clientesDtos, HttpStatus.OK);
 	}
 	
+	@ApiOperation(value = "Consulta cliente pelo ID do mesmo com detalhamento")
 	@GetMapping("/cliente/detalhe/{id}")
 	public ResponseEntity<?> getDetalhe(@PathVariable Long id) {
 		
@@ -70,8 +72,9 @@ public class ClienteResource {
 		
 		Cliente cliente = clienteDTO.toCliente();
 		try {		
-//			if(ValidaCPF.isCPF(cliente.getCPF()))
-//				return new ResponseEntity<>("CPF inválido!", HttpStatus.BAD_REQUEST);
+			  if(!ValidaCPF.isCPF(cliente.getCPF())) return new
+			  ResponseEntity<>("CPF inválido!", HttpStatus.BAD_REQUEST);
+			 
 			
 			clienteRepository.save(cliente);
 			
@@ -88,12 +91,9 @@ public class ClienteResource {
 			
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		} 
-//		catch (MethodArgumentNotValidException e) {
-//			if(ValidaCPF.isCPF(clienteDTO.getCpf()))
-//				return new ResponseEntity<>("CPF inválido.", HttpStatus.BAD_REQUEST);
-//			
-//			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
-//		}
+		catch (MethodArgumentNotValidException e) {
+			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
 	}
 	
 	@ApiOperation(value = "Atualização de um cliente a partir do seu id")
@@ -119,16 +119,33 @@ public class ClienteResource {
 	}
 	
 	// TODO O certo não é apagar a conta, mas apenas desativar
-	@DeleteMapping("/cliente/{email}")
-	public ResponseEntity<?> deletaCliente(@PathVariable String email) {
+	@ApiOperation(value = "Desativação da conta do cliente")
+	@GetMapping("/cliente/desativar/{email}")
+	public ResponseEntity<?> getDesativar(@PathVariable String email) {
 
 		try {
 			Cliente cliente = clienteRepository.findByEmail(email).orElseThrow(() -> new ClienteException("Cliente não encontrado"));
-			clienteRepository.delete(cliente);
-			return new ResponseEntity<>("Cliente removido com sucesso", HttpStatus.OK);
-			
+			cliente.setStatusConta(false);
+			clienteRepository.save(cliente);
+			return new ResponseEntity<>("Conta desativada com sucesso", HttpStatus.OK);
+
 		} catch (ClienteException e) {
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
 		}
-	} 
-}
+	}
+	
+	@ApiOperation(value = "Desativação da conta do cliente")
+	@GetMapping("/cliente/ativar/{email}")
+	public ResponseEntity<?> getAtivar(@PathVariable String email) {
+
+		try {
+			Cliente cliente = clienteRepository.findByEmail(email).orElseThrow(() -> new ClienteException("Cliente não encontrado"));
+			cliente.setStatusConta(true);
+			clienteRepository.save(cliente);
+			return new ResponseEntity<>("Conta ativada com sucesso", HttpStatus.OK);
+
+		} catch (ClienteException e) {
+			return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+		}
+	}
+} 

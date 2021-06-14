@@ -25,7 +25,8 @@ public class Pedido {
 	
 	private Double valorTotal;
 	private LocalDateTime dataPedido;
-	private String status;
+	private StatusPedido statusPedido;
+	private Pagamento formaPagamento;
 	
 	@ManyToOne
 	private Cliente cliente;
@@ -70,12 +71,14 @@ public class Pedido {
 		this.dataPedido = dataPedido;
 	}
 
-	public String getStatus() {
-		return status;
+	
+
+	public StatusPedido getStatusPedido() {
+		return statusPedido;
 	}
 
-	public void setStatus(String status) {
-		this.status = status;
+	public void setStatusPedido(StatusPedido statusPedido) {
+		this.statusPedido = statusPedido;
 	}
 
 	public Cliente getCliente() {
@@ -94,5 +97,13 @@ public class Pedido {
 		}
 
 		return total;
+	}
+
+	public Pagamento getFormaPagamento() {
+		return formaPagamento;
+	}
+
+	public void setFormaPagamento(Pagamento formaPagamento) {
+		this.formaPagamento = formaPagamento;
 	}
 }

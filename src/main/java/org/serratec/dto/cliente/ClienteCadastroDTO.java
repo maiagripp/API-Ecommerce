@@ -50,6 +50,7 @@ public class ClienteCadastroDTO {
 //	private Optional<EnderecoCadastroSimplesDTO> endereco = Optional.empty();
 	
 	public Cliente toCliente() {
+
 		Cliente c = new Cliente();
 		c.setEmail(this.email);
 		c.setuserNameCliente(this.username);
