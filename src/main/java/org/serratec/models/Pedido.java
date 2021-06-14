@@ -85,4 +85,14 @@ public class Pedido {
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
+	
+	public Double getTotalPedido() {
+		Double total = 0.00;
+
+		for (ProdutosPedido pp : produtos) {
+			total += pp.getValorTotal();
+		}
+
+		return total;
+	}
 }

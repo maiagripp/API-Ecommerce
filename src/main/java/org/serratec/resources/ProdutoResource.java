@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.serratec.dto.produto.ProdutoCadastroDTO;
 import org.serratec.exception.ProdutoException;
 import org.serratec.models.Produto;
+import org.serratec.repository.CategoriaRepository;
 import org.serratec.repository.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,6 +27,9 @@ public class ProdutoResource {
 	@Autowired
 	ProdutoRepository produtoRepository;
 	
+	@Autowired
+	CategoriaRepository categoriaRepository;
+	
 	@GetMapping(value = "/produto/imagem/{id}", produces = MediaType.IMAGE_JPEG_VALUE)
 	public ResponseEntity<?> getCapa (@PathVariable Long id){
 		Optional<Produto> produto = produtoRepository.findById(id);
@@ -39,7 +43,7 @@ public class ProdutoResource {
 	@PostMapping("/produto")
 	public ResponseEntity<?> postProduto(@RequestBody ProdutoCadastroDTO dto) {
 		try {
-			Produto produto = dto.toProduto(produtoRepository);
+			Produto produto = dto.toProduto(categoriaRepository);
 			produtoRepository.save(produto);
 			return new ResponseEntity<>("Produto cadastrado com sucesso!", HttpStatus.OK);
 		} catch (Exception e) {
@@ -76,6 +80,7 @@ public class ProdutoResource {
 		}
 		
 		Produto existente = optional.get();
+		existente.setCodigo(novo.getCodigo());
 		existente.setNome(novo.getNome());
 		existente.setDescricao(novo.getDescricao());
 		existente.setPreco(novo.getPreco());

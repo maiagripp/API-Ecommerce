@@ -2,7 +2,6 @@ package org.serratec.models;
 
 import java.time.LocalDateTime;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,11 +15,12 @@ public class Produto {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	private String codigo;
 	private String nome;
 	private String descricao;
 	private Double preco;
 	private Integer quantidadeEstoque;
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	private Categoria categoria;
 	private LocalDateTime dataCadastro;
 	private byte[] imagemBase64;
@@ -39,6 +39,14 @@ public class Produto {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+	
+	public String getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
 	}
 
 	public String getNome() {

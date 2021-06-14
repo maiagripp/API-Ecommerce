@@ -1,6 +1,8 @@
 package org.serratec.models;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collection;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -12,8 +14,13 @@ import javax.persistence.OneToOne;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 @Entity
-public class Cliente {
+public class Cliente implements UserDetails {
+	
+	private static final long serialVersionUID = 6457173867801571649L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,7 +32,7 @@ public class Cliente {
 	@NotNull
 	@NotBlank
 	@Column(length = 20)
-	private String username;
+	private String userNameCliente;
 	@NotNull
 	@NotBlank
 	@Column(length = 18)
@@ -64,12 +71,12 @@ public class Cliente {
 		this.email = email;
 	}
 
-	public String getUsername() {
-		return username;
+	public String getuserNameCliente() {
+		return userNameCliente;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public void setuserNameCliente(String username) {
+		this.userNameCliente = username;
 	}
 
 	public String getSenha() {
@@ -118,5 +125,40 @@ public class Cliente {
 
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
+	}
+	
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		return new ArrayList<GrantedAuthority>();
+	}
+
+	@Override
+	public String getPassword() {
+		return this.senha;
+	}
+
+	@Override
+	public String getUsername() {
+		return this.email;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		return true;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return true;
 	}
 }

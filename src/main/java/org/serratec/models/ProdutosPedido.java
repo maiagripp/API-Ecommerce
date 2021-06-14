@@ -54,5 +54,7 @@ public class ProdutosPedido {
 	public void setPreco(Double preco) {
 		this.preco = preco;
 	}
-
+	public Double getValorTotal() {
+		return this.preco * this.quantidade;
+	}
 }

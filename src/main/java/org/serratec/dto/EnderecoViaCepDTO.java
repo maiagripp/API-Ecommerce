@@ -2,22 +2,26 @@ package org.serratec.dto;
 
 public class EnderecoViaCepDTO {
 
-	private String rua;
+	private String logradouro;
 	private String bairro;
-	private String cidade;
-	private String estado;
+	private String localidade;
+	private String uf;
+	private String cep;
 	
-	public String getRua() {
-		return rua;
+	public String getLogradouro() {
+		return logradouro;
 	}
 	public String getBairro() {
 		return bairro;
 	}
-	public String getCidade() {
-		return cidade;
+	public String getLocalidade() {
+		return localidade;
 	}
-	public String getEstado() {
-		return estado;
+	public String getUf() {
+		return uf;
+	}
+	public String getCep() {
+		return cep;
 	}
 
 }

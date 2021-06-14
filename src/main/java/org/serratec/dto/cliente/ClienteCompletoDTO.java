@@ -17,7 +17,7 @@ public class ClienteCompletoDTO {
 	
 	public ClienteCompletoDTO(Cliente cliente) {
 		this.email = cliente.getEmail();
-		this.username = cliente.getUsername();
+		this.username = cliente.getuserNameCliente();
 		this.nome = cliente.getNome();
 		this.cpf = cliente.getCPF();
 		this.telefone = cliente.getTelefone();
