@@ -1,5 +1,7 @@
 # API-Ecommerce
 
+Grupo do trabalho: Claudia Maia, Cristiny Boeta, Davi Faustino, Luciana Bohrer, Murilo Marinho e Thamires Ramos
+
 Projeto final do módulo de API REST da Residência de Software do Serratec.
 O trabalho consiste em uma API para um e-commerce.
 
