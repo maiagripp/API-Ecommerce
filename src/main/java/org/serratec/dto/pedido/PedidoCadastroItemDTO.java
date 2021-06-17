@@ -18,7 +18,7 @@ public class PedidoCadastroItemDTO {
 		Optional<Produto> produto = pr.findByCodigo(codigoProduto);
 		
 		if (produto.isEmpty())
-			throw new ProdutosPedidoException("Produto n√£o encontrado!");
+			throw new ProdutosPedidoException("Produto n„o encontrado.");
 		
 		pp.setProduto(produto.get());
 		pp.setQuantidade(quantidade);

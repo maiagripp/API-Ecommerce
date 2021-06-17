@@ -58,7 +58,7 @@ public class ClienteResource {
 	public ResponseEntity<?> getDetalhe(@PathVariable Long id) {
 		
 		try {
-			Cliente cliente = clienteRepository.findById(id).orElseThrow(() -> new ClienteException("Cliente n√£o encontrado"));
+			Cliente cliente = clienteRepository.findById(id).orElseThrow(() -> new ClienteException("Cliente n„o encontrado"));
 			return new ResponseEntity<>(new ClienteCompletoDTO(cliente), HttpStatus.OK);
 			
 		} catch (ClienteException e) {
@@ -73,21 +73,21 @@ public class ClienteResource {
 		Cliente cliente = clienteDTO.toCliente();
 		try {		
 			  if(!ValidaCPF.isCPF(cliente.getCPF())) return new
-			  ResponseEntity<>("CPF inv√°lido!", HttpStatus.BAD_REQUEST);
+			  ResponseEntity<>("CPF inv·lido!", HttpStatus.BAD_REQUEST);
 			 
 			
 			clienteRepository.save(cliente);
 			
-			emailService.enviar("Bem vindo", "Seu e-mail foi cadastrado com sucesso", cliente.getEmail());
+			emailService.enviar("Bem vindo", "Seu e-mail foi cadastrado com sucesso!", cliente.getEmail());
 			
 			return new ResponseEntity<>("Cliente cadastrado com sucesso!", HttpStatus.OK);
 		} catch (DataIntegrityViolationException e) {
 			if(clienteRepository.existsByEmail(cliente.getEmail()) && clienteRepository.existsByCPF(cliente.getCPF()))
-				return new ResponseEntity<>("J√° existe um cliente com este email e CPF", HttpStatus.BAD_REQUEST);
+				return new ResponseEntity<>("J· existe um cliente com este email e CPF", HttpStatus.BAD_REQUEST);
 			if(clienteRepository.existsByEmail(cliente.getEmail()))
-				return new ResponseEntity<>("J√° existe um cliente com este email", HttpStatus.BAD_REQUEST);
+				return new ResponseEntity<>("J· existe um cliente com este email", HttpStatus.BAD_REQUEST);
 			if(clienteRepository.existsByCPF(cliente.getCPF()))
-				return new ResponseEntity<>("J√° existe um cliente com este CPF", HttpStatus.BAD_REQUEST);
+				return new ResponseEntity<>("J· existe um cliente com este CPF", HttpStatus.BAD_REQUEST);
 			
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		} 
@@ -96,15 +96,15 @@ public class ClienteResource {
 		}
 	}
 	
-	@ApiOperation(value = "Atualiza√ß√£o de um cliente a partir do seu id")
+	@ApiOperation(value = "AtualizaÁ„o de um cliente a partir do seu ID")
 	@PutMapping("/cliente/{id}")
 	public ResponseEntity<?> putCliente(@PathVariable Long id, @RequestBody Cliente novo) {
 		
 		try {
-			Cliente cliente = clienteRepository.findById(id).orElseThrow(() -> new ClienteException("Cliente n√£o encontrado") );
+			Cliente cliente = clienteRepository.findById(id).orElseThrow(() -> new ClienteException("Cliente n„o encontrado.") );
 			
-			if(novo.getuserNameCliente() != null && !novo.getuserNameCliente().isBlank())
-				cliente.setuserNameCliente(novo.getuserNameCliente());
+			if(novo.getUserNameCliente() != null && !novo.getUserNameCliente().isBlank())
+				cliente.setUserNameCliente(novo.getUserNameCliente());
 			if(novo.getNome() != null && !novo.getNome().isBlank())
 				cliente.setNome(novo.getNome());
 			if(novo.getTelefone() != null && !novo.getTelefone().isBlank())
@@ -114,35 +114,34 @@ public class ClienteResource {
 			
 			return new ResponseEntity<>(new ClienteCompletoDTO(cliente), HttpStatus.OK);
 		} catch (ClienteException e) {
-			return new ResponseEntity<>("Erro ao atualizar seu cadastro", HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>("Erro ao atualizar seu cadastro.", HttpStatus.BAD_REQUEST);
 		}
 	}
 	
-	// TODO O certo n√£o √© apagar a conta, mas apenas desativar
-	@ApiOperation(value = "Desativa√ß√£o da conta do cliente")
+	@ApiOperation(value = "DesativaÁ„o da conta do cliente")
 	@GetMapping("/cliente/desativar/{email}")
 	public ResponseEntity<?> getDesativar(@PathVariable String email) {
 
 		try {
-			Cliente cliente = clienteRepository.findByEmail(email).orElseThrow(() -> new ClienteException("Cliente n√£o encontrado"));
+			Cliente cliente = clienteRepository.findByEmail(email).orElseThrow(() -> new ClienteException("Cliente n„o encontrado."));
 			cliente.setStatusConta(false);
 			clienteRepository.save(cliente);
-			return new ResponseEntity<>("Conta desativada com sucesso", HttpStatus.OK);
+			return new ResponseEntity<>("Conta desativada com sucesso.", HttpStatus.OK);
 
 		} catch (ClienteException e) {
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
 		}
 	}
 	
-	@ApiOperation(value = "Desativa√ß√£o da conta do cliente")
+	@ApiOperation(value = "AtivaÁ„o da conta do cliente")
 	@GetMapping("/cliente/ativar/{email}")
 	public ResponseEntity<?> getAtivar(@PathVariable String email) {
 
 		try {
-			Cliente cliente = clienteRepository.findByEmail(email).orElseThrow(() -> new ClienteException("Cliente n√£o encontrado"));
+			Cliente cliente = clienteRepository.findByEmail(email).orElseThrow(() -> new ClienteException("Cliente n„o encontrado."));
 			cliente.setStatusConta(true);
 			clienteRepository.save(cliente);
-			return new ResponseEntity<>("Conta ativada com sucesso", HttpStatus.OK);
+			return new ResponseEntity<>("Conta ativada com sucesso.", HttpStatus.OK);
 
 		} catch (ClienteException e) {
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);

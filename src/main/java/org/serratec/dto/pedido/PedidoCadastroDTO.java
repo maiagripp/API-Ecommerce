@@ -22,7 +22,7 @@ public class PedidoCadastroDTO {
 		pedido.setDataPedido(LocalDateTime.now());
 		pedido.setNumeroPedido(this.gerarNovoCodigoVenda());
 		
-		Cliente cliente = cr.findByEmail(email).orElseThrow(() -> new PedidoException("Email nÃ£o informado"));
+		Cliente cliente = cr.findByEmail(email).orElseThrow(() -> new PedidoException("E-mail não informado."));
 		pedido.setCliente(cliente);
 		
 		for (PedidoCadastroItemDTO pedidoCadastroItem : itens) {
@@ -54,6 +54,7 @@ public class PedidoCadastroDTO {
 
 		return codigo;
 	}
+	
 
 	public String getEmail() {
 		return email;
@@ -62,4 +63,5 @@ public class PedidoCadastroDTO {
 	public List<PedidoCadastroItemDTO> getItens() {
 		return itens;
 	}
+	
 }

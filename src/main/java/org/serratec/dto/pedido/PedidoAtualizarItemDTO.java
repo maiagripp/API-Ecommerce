@@ -24,4 +24,5 @@ public class PedidoAtualizarItemDTO {
 	public Integer getQuantidade() {
 		return quantidade;
 	}
+	
 }

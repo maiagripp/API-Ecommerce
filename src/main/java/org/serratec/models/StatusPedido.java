@@ -1,10 +1,10 @@
 package org.serratec.models;
 
 public enum StatusPedido {
-
-	FINALIZADO,
+	
 	AGUARDANDO_PAGAMENTO,
 	PAGAMETO_CONFIRMADO,
+	FINALIZADO,
 	ENVIADO,
 	EM_TRANSPORTE,
 	ENTREGUE

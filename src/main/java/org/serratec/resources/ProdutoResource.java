@@ -34,7 +34,7 @@ public class ProdutoResource {
 	@Autowired
 	CategoriaRepository categoriaRepository;
 	
-	@ApiOperation(value = "Cadastro de  imagem de um produto")
+	@ApiOperation(value = "VisualizaÁ„o de  imagem de um produto")
 	@GetMapping(value = "/produto/imagem/{id}", produces = MediaType.IMAGE_JPEG_VALUE)
 	public ResponseEntity<?> getCapa (@PathVariable Long id){
 		Optional<Produto> produto = produtoRepository.findById(id);
@@ -70,7 +70,7 @@ public class ProdutoResource {
 	@GetMapping("/produto/{nome}")
 	public ResponseEntity<?> getPorNome(@PathVariable String nome) {
 		try {
-			Produto produto = produtoRepository.findByNome(nome).orElseThrow(() -> new ProdutoException("Produto n√£o encontrado"));
+			Produto produto = produtoRepository.findByNome(nome).orElseThrow(() -> new ProdutoException("Produto n„o encontrado."));
 			return new ResponseEntity<>(produto, HttpStatus.OK);
 			
 		} catch (ProdutoException e) {
@@ -79,13 +79,13 @@ public class ProdutoResource {
 		
 	}
 	
-	@ApiOperation(value = "Altera√ß√£o de um produto pelo seu ID")
+	@ApiOperation(value = "AtualizaÁ„o de um produto pelo seu ID")
 	@PutMapping("/produto/{id}")
 	public ResponseEntity<?> putProduto(@PathVariable Long id, @RequestBody Produto novo) {
 		Optional <Produto> optional = produtoRepository.findById(id);
 		
 		if(optional.isEmpty()) {
-			return new ResponseEntity<>("Produto n√£o encontrado" , HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>("Produto n„o encontrado." , HttpStatus.NOT_FOUND);
 		}
 		
 		Produto existente = optional.get();
@@ -98,24 +98,24 @@ public class ProdutoResource {
 		
 		produtoRepository.save(existente);
 		
-		return new ResponseEntity<>("Produto atualizado com sucesso", HttpStatus.OK);
+		return new ResponseEntity<>("Produto atualizado com sucesso.", HttpStatus.OK);
 		
 	}
 	
-	@ApiOperation(value = "Exclus√£o de um produto")
+	@ApiOperation(value = "Exclus„o de um produto")
 	@DeleteMapping("/produto/{id}")
 	public ResponseEntity<?> deleteProduto(@PathVariable Long id) {
 		Optional <Produto> optional = produtoRepository.findById(id);
 		
 		if(optional.isEmpty()) {
-			return new ResponseEntity<>("Produto n√£o encontrado", HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>("Produto n„o encontrado.", HttpStatus.NOT_FOUND);
 		}
 		
 		Produto existente = optional.get();
 		
 		produtoRepository.delete(existente);
 		
-		return new ResponseEntity<>("Produto deletado com sucesso", HttpStatus.OK);
+		return new ResponseEntity<>("Produto deletado com sucesso.", HttpStatus.OK);
 	}
 	
 }

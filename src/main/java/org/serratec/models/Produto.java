@@ -15,15 +15,21 @@ public class Produto {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
 	private String codigo;
 	private String nome;
 	private String descricao;
 	private Double preco;
 	private Integer quantidadeEstoque;
+	
 	@ManyToOne
 	private Categoria categoria;
+	
 	private LocalDateTime dataCadastro;
+	
 	private byte[] imagemBase64;
+	
+	
 	
 	public byte[] getImagemBase64() {
 		return imagemBase64;

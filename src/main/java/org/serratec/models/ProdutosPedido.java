@@ -21,8 +21,11 @@ public class ProdutosPedido {
 	@JsonIgnore
 	@ManyToOne
 	private Pedido pedido;
+	
 	private Integer quantidade;
+	
 	private Double preco;
+	
 	
 	public Long getId() {
 		return id;

@@ -16,26 +16,33 @@ public class ProdutoCadastroDTO {
 	@NotNull
 	@NotBlank
 	private String codigo;
+	
 	@NotNull
 	@NotBlank
 	private String nome;
+	
 	@NotNull
 	@NotBlank
 	private String descricao;
+	
 	@NotNull
 	@NotBlank
 	@Min(value = 0)
 	private Double preco;
+	
 	@NotNull
 	@NotBlank
 	@Min(value = 0)
 	private Integer quantidadeEstoque;
+	
 	@NotNull
 	@NotBlank
 	private Categoria categoria;
+	
 	@NotNull
 	@NotBlank
 	private LocalDateTime dataCadastro;
+	
 	private String imgBase64;
 	
 	public Produto toProduto(CategoriaRepository categoriaRepository) throws CategoriaException {
@@ -46,7 +53,7 @@ public class ProdutoCadastroDTO {
 		p.setPreco(this.preco);
 		p.setQuantidadeEstoque(this.quantidadeEstoque);
 		
-		Categoria categoria = categoriaRepository.findById(this.categoria.getId()).orElseThrow(() -> new CategoriaException("Categoria nÃ£o encontrada"));
+		Categoria categoria = categoriaRepository.findById(this.categoria.getId()).orElseThrow(() -> new CategoriaException("Categoria não encontrada."));
 		p.setCategoria(categoria);
 		p.setDataCadastro(LocalDateTime.now());
 		

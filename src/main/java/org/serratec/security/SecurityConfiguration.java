@@ -49,13 +49,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
         	.antMatchers(HttpMethod.POST, "/auth").permitAll()
         	.antMatchers(HttpMethod.POST, "/cliente").permitAll()
-        	.antMatchers(HttpMethod.GET, "/cliente/todos").permitAll()
-        	.antMatchers(HttpMethod.GET, "/cliente/detalhe/{id}").permitAll()
-        	.antMatchers(HttpMethod.PUT, "/cliente/{id}").permitAll()
-        	.antMatchers(HttpMethod.DELETE, "/cliente/{email}").permitAll()
         	.antMatchers(HttpMethod.GET, "/pedido/todos").permitAll()
-        	.antMatchers(HttpMethod.GET, "/pedido/detalhado/{numeroPedido}").permitAll()
-        	.antMatchers(HttpMethod.POST, "/pedido").permitAll()
+        	.antMatchers(HttpMethod.DELETE, "/pedido/excluir/{numeroPedido}").permitAll()
         	.antMatchers(HttpMethod.POST, "/categoria").permitAll()
         	.antMatchers(HttpMethod.GET, "/categoria/todas").permitAll()
         	.antMatchers(HttpMethod.GET, "/categoria/{nome}").permitAll()
@@ -68,10 +63,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         	.antMatchers(HttpMethod.DELETE, "/produto/{id}").permitAll()
         	.antMatchers(HttpMethod.GET, "/produto/imagem/{id}").permitAll()   
         	.antMatchers(HttpMethod.GET, "/help").permitAll()
-        	.antMatchers(HttpMethod.DELETE, "/pedido/excluir/{numeroPedido}").permitAll()
-        	.antMatchers(HttpMethod.PUT, "/pedido").permitAll()
-        	.antMatchers(HttpMethod.GET, "/cliente/desativar/{email}").permitAll()
-        	.antMatchers(HttpMethod.POST, "/pedido/finalizar").permitAll()
         		.anyRequest().authenticated()
         	.and().csrf().disable()
         	.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -82,6 +73,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     
     @Override
 	public void configure(WebSecurity web) throws Exception{
-		web.ignoring().antMatchers("/css/*", "/img/", "/js/*");
+		//web.ignoring().antMatchers("/css/*", "/img/", "/js/*");
+		web.ignoring().antMatchers("/v2/api-docs",
+                "/configuration/ui",
+                "/swagger-resources/**",
+                "/configuration/security",
+                "/swagger-ui.html",
+                "/webjars/**");
 	}
 }

@@ -19,4 +19,5 @@ public class ClienteSimplificadoDTO {
 	public String getEmail() {
 		return email;
 	}
+	
 }

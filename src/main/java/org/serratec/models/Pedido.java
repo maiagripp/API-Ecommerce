@@ -18,19 +18,25 @@ public class Pedido {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
 	private String numeroPedido;
 	
 	@OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
 	private List<ProdutosPedido> produtos = new ArrayList<>();
 	
 	private Double valorTotal;
+	
 	private LocalDateTime dataPedido;
+	
 	private StatusPedido statusPedido;
+	
 	private Pagamento formaPagamento;
 	
 	@ManyToOne
 	private Cliente cliente;
 
+	
+	
 	public Long getId() {
 		return id;
 	}
@@ -71,8 +77,6 @@ public class Pedido {
 		this.dataPedido = dataPedido;
 	}
 
-	
-
 	public StatusPedido getStatusPedido() {
 		return statusPedido;
 	}
@@ -89,6 +93,15 @@ public class Pedido {
 		this.cliente = cliente;
 	}
 	
+	public Pagamento getFormaPagamento() {
+		return formaPagamento;
+	}
+
+	public void setFormaPagamento(Pagamento formaPagamento) {
+		this.formaPagamento = formaPagamento;
+	}
+	
+	
 	public Double getTotalPedido() {
 		Double total = 0.00;
 
@@ -99,11 +112,5 @@ public class Pedido {
 		return total;
 	}
 
-	public Pagamento getFormaPagamento() {
-		return formaPagamento;
-	}
-
-	public void setFormaPagamento(Pagamento formaPagamento) {
-		this.formaPagamento = formaPagamento;
-	}
+	
 }

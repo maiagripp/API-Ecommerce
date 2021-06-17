@@ -12,7 +12,7 @@ public class PedidoFinalizarDTO {
 	
 	public Pedido toPedido(PedidoRepository pedidoRepository) throws PedidoException {
 		
-		Pedido pedido = pedidoRepository.findByNumeroPedido(this.numeroPedido).orElseThrow(() -> new PedidoException("Pedido nÃ£o encontrado"));
+		Pedido pedido = pedidoRepository.findByNumeroPedido(this.numeroPedido).orElseThrow(() -> new PedidoException("Pedido não encontrado."));
 		return pedido;
 	}
 

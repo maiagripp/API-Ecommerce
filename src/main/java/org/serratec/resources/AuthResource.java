@@ -18,7 +18,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
 @RestController
-@Api(value = "API de autenticaÃ§Ã£o")
+@Api(value = "API - Autenticação")
 public class AuthResource {
 	
 	@Autowired
@@ -27,7 +27,7 @@ public class AuthResource {
 	@Autowired
 	private TokenService tokenService;
 	
-	@ApiOperation(value = "GeraÃ§Ã£o do token de autenticaÃ§Ã£o a partir de username e senha")
+	@ApiOperation(value = "Geração do token de autenticação a partir de username e senha")
 	@PostMapping("/auth")
 	public ResponseEntity<?> auth(@RequestBody @Validated LoginDTO loginDTO){
 		UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(loginDTO.getUser(), loginDTO.getPass());

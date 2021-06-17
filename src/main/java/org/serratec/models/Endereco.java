@@ -12,15 +12,23 @@ public class Endereco {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
 	@Column(nullable = false, length = 10)
 	private String cep;
+	
 	private String rua;
+	
 	@Column(nullable = false, length = 10)
 	private String numeroResidencia;
+	
 	private String complemento;
+	
 	private String bairro;
+	
 	private String cidade;
+	
 	private String estado;
+	
 	
 	public Long getId() {
 		return id;
@@ -55,7 +63,5 @@ public class Endereco {
 	public void setComplemento(String complemento) {
 		this.complemento = complemento;
 	}
-	
-	
 	
 }

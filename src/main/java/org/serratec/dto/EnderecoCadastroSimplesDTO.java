@@ -11,8 +11,10 @@ public class EnderecoCadastroSimplesDTO {
 	@NotNull
 	@NotBlank
 	private String cep;
+	
 	@Column(nullable = false, length = 10)
 	private String numeroResidencia;
+	
 	private String complemento;
 	
 	public Endereco toEndereco() {
@@ -36,4 +38,5 @@ public class EnderecoCadastroSimplesDTO {
 	public String getComplemento() {
 		return complemento;
 	}
+	
 }

@@ -47,7 +47,7 @@ public class CategoriaResource {
 	@GetMapping("/categoria/{nome}")
 	public ResponseEntity<?> getPorNome(@PathVariable String nome){
 		try {
-			Categoria categoria = categoriaRepository.findByNome(nome).orElseThrow(() -> new CategoriaException("Categoria n√£o encontrada"));
+			Categoria categoria = categoriaRepository.findByNome(nome).orElseThrow(() -> new CategoriaException("Categoria n„o encontrada."));
 			return new ResponseEntity<>(categoria, HttpStatus.OK);
 			
 		} catch (CategoriaException e) {
@@ -55,13 +55,13 @@ public class CategoriaResource {
 		}
 	}
 	
-	@ApiOperation(value = "Atualiza√ß√£o de uma categoria a partir do seu id")
+	@ApiOperation(value = "AtualizaÁ„o de uma categoria a partir do seu ID")
 	@PutMapping("/categoria/{id}")
 	public ResponseEntity<?> putCategoria(@PathVariable Long id, @RequestBody Categoria novo) {
 		Optional<Categoria> optional = categoriaRepository.findById(id);
 		 
 		if(optional.isEmpty()){
-			return new ResponseEntity<>("Categoria n√£o encontrada", HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>("Categoria n„o encontrada.", HttpStatus.NOT_FOUND);
 		}
 		
 		Categoria existente = optional.get();
@@ -73,20 +73,20 @@ public class CategoriaResource {
 		return new ResponseEntity<>("Categoria atualizada com sucesso", HttpStatus.OK);
 	}
 	
-	@ApiOperation(value = "Exclus√£o de uma categoria a partir do seu id")
+	@ApiOperation(value = "Exclus„o de uma categoria a partir do seu ID")
 	@DeleteMapping("/categoria/{id}")
 	public ResponseEntity<?> deleteCategoria(@PathVariable Long id){
 		Optional<Categoria> optional = categoriaRepository.findById(id);
 		 
 		if(optional.isEmpty()){
-			return new ResponseEntity<>("Categoria n√£o encontrada", HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>("Categoria n„o encontrada.", HttpStatus.NOT_FOUND);
 		}
 		
 		Categoria existente = optional.get();
 		
 		categoriaRepository.delete(existente);
 		
-		return new ResponseEntity<>("Categoria deletada com sucesso", HttpStatus.OK);
+		return new ResponseEntity<>("Categoria deletada com sucesso.", HttpStatus.OK);
 	}
 	
 }

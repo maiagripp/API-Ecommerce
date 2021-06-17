@@ -12,7 +12,9 @@ public class Categoria {
 	private Long id;
 	
 	private String nome;
+	
 	private String descricao;
+	
 	
 	public Long getId() {
 		return id;
@@ -34,4 +36,6 @@ public class Categoria {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
+	
+	
 }

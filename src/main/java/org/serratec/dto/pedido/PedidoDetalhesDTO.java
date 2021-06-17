@@ -3,10 +3,11 @@ package org.serratec.dto.pedido;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.serratec.dto.cliente.ClienteSimplificadoDTO;
+import org.serratec.dto.produto.ProdutoSimplificadoDTO;
 import org.serratec.models.Pedido;
-import org.serratec.models.ProdutosPedido;
 
 public class PedidoDetalhesDTO {
 
@@ -14,18 +15,14 @@ public class PedidoDetalhesDTO {
 	private ClienteSimplificadoDTO cliente;
 	private LocalDateTime dataPedido;
 	private Double totalPedido;
-	private List<ProdutosPedido> itens = new ArrayList<>();
+	private List<ProdutoSimplificadoDTO> itens = new ArrayList<>();
 	
 	public PedidoDetalhesDTO(Pedido pedido) {
 		this.codigoPedido = pedido.getNumeroPedido();
 		this.cliente = new ClienteSimplificadoDTO(pedido.getCliente());
 		this.dataPedido = pedido.getDataPedido();
 		this.totalPedido = pedido.getTotalPedido();
-		this.itens = pedido.getProdutos();
-	}
-
-	public PedidoDetalhesDTO(ProdutosPedido obj) {
-		// TODO Auto-generated constructor stub
+		this.itens = pedido.getProdutos().stream().map(obj -> new ProdutoSimplificadoDTO(obj)).collect(Collectors.toList());
 	}
 
 	public String getCodigoPedido() {
@@ -44,8 +41,9 @@ public class PedidoDetalhesDTO {
 		return totalPedido;
 	}
 
-	public List<ProdutosPedido> getItens() {
+	public List<ProdutoSimplificadoDTO> getItens() {
 		return itens;
 	}
+
 	
 }

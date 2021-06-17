@@ -18,7 +18,7 @@ public class ClienteCompletoDTO {
 	
 	public ClienteCompletoDTO(Cliente cliente) {
 		this.email = cliente.getEmail();
-		this.username = cliente.getuserNameCliente();
+		this.username = cliente.getUserNameCliente();
 		this.nome = cliente.getNome();
 		this.cpf = cliente.getCPF();
 		this.telefone = cliente.getTelefone();
@@ -58,7 +58,5 @@ public class ClienteCompletoDTO {
 	public EnderecoCompletoDTO getEndereco() {
 		return endereco;
 	}
-
-
 
 }
